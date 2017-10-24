@@ -76,6 +76,17 @@ method(3.14, "hello", true)
 
 ---
 
+## Primitives - Literals
+
+Can also use literal values as types
+
+```javascript
+type Suit = 'Spades' | 'Hearts' | 'Clubs' | 'Diamonds'
+const card: Suit = 'Spades'
+```
+
+---
+
 ## Primitives - Constructed objects
 
 
@@ -145,19 +156,86 @@ function acceptsMaybeNumber(
 
 ## Variable types
 
+```javascript
+// @flow
+const fooConst /* : string */ = '1'
+const barConst: string = '2'
+let fooLet /* : number */ = 1
+let barLet: number = 2
+```
+
+^ For const variables Flow can either infer the type from the value you are assigning to it or you can provide it with a type
+^ Since let can be re-assigned, there’s a few more rules you’ll need to know about. Similar to const, Flow can either infer the type from the value you are assigning to it or you can provide it with a type
+^ When you provide a type, you will be able to re-assign the value, but it must always be of a compatible type.
+^ When you do not provide a type, the inferred type will do one of two things if you re-assign it.
+
 ---
 
 ## Function types
+
+```javascript, [.highlight: 2]
+// @flow
+function concat(a: string, b: string): string {
+  return a + b
+}
+```
+
+^ Functions have two places where types are applied: Parameters (input) and the return value (output).
+
+---
+
+## Function types - Optional Parameters
+
+```javascript, [.highlight: 2]
+// @flow
+function method(baz?: string): string {
+  // ...
+}
+```
+
+^ You can also have optional parameters by adding a question mark ? after the name of the parameter and before the colon :.
+
 ---
 
 ## Object types
 
+```javascript
+// @flow
+var obj1: { foo: boolean } = { foo: true }
+var obj2: {
+  foo: number,
+  bar: boolean,
+  baz?: string, // Optional property
+} = {
+  foo: 1,
+  bar: true,
+  baz: 'three',
+}
+```
+
 ---
 
 ## Array types
+
+```javascript
+let arr1: Array<boolean> = [true, false, true]
+let arr2: Array<string> = ["A", "B", "C"]
+let arr3: Array<mixed> = [1, true, "three"]
+// OR
+let arr4: boolean[] = [true, false, true]
+let arr5: string[] = ["A", "B", "C"]
+let arr6: mixed[] = [1, true, "three"]
+```
+
 ---
 
 ## Tuple types
+
+```javascript
+let tuple1: [number] = [1]
+let tuple2: [number, boolean] = [1, true]
+let tuple3: [number, boolean, string] = [1, true, "three"]
+```
 
 ---
 
@@ -206,8 +284,33 @@ class Foo { constructor(val: MyObject) { /* ... */ } }
 
 ## Opaque Type Aliases
 
+```javascript
+// @flow
+opaque type ID = string
+
+function identity(x: ID): ID {
+  return x
+}
+export type { ID }
+```
+
 ^ Opaque type aliases are type aliases that do not allow access to their underlying type outside of the file in which they are defined. Opaque type aliases may be used anywhere a type can be used.
   The main difference is that within the file they are defined they act like normal type aliases using structural typing, but when imported into another file they use nominal typing
+
+---
+## `typeof` types
+
+```javascript
+// @flow
+let obj1 = { foo: 1, bar: true, baz: 'three' }
+let obj2: typeof obj1 = { foo: 42, bar: false, baz: 'hello' }
+
+let arr1 = [1, 2, 3]
+let arr2: typeof arr1 = [3, 2, 1]
+```
+
+^ JavaScript has a typeof operator which returns a string describing a value.
+^ Flow's `typeof` operator allows you to leverage existing types of a variable without having to redefine the type
 
 ---
 
@@ -244,6 +347,14 @@ logNullable()
 
 ^ Using read-only properties in places where you're not mutating
   will make the errors you get from flow match your expectations more closely
+
+---
+## Further reading
+- [Interfaces](https://flow.org/en/docs/types/interfaces/)
+- [Generics](https://flow.org/en/docs/types/generics/)
+- [Unions](https://flow.org/en/docs/types/unions/)
+- [Intersections](https://flow.org/en/docs/types/intersections/)
+- [Utility types](https://flow.org/en/docs/types/utilities/)
 
 ---
 
