@@ -67,7 +67,7 @@
 
 ## my notes
   - really hard to get get a runtime exception w/ a properly flow-typed code base
-  - [`mixed`]() similar to `any`, but is not an escape hatch. `mixed` says to flow, "Hey I don't know what this will be, but I promise I won't depend on it's type"
+  - [`mixed`](https://flow.org/en/docs/types/mixed/) similar to `any`, but is not an escape hatch. `mixed` says to flow, "Hey I don't know what this will be, but I promise I won't depend on it's type"
   - `flow-typed` - useful cli to check existing flow-types for npm modules and add them to your codebase, and will help create stubs for packages that don't have any types yet. also gives instructions on how to contribute back
   - `flow-runtime`
     - optionally compile flow to runtime typechecks

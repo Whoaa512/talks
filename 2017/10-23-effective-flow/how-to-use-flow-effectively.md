@@ -28,7 +28,7 @@ theme: Next, 3
 
 ^ I want to start w/ some short reasons why flow is important
 
-  really hard to get get a runtime exception w/ a properly flow-typed code base.
+^ really hard to get get a runtime exception w/ a properly flow-typed code base.
   Also a good rule of thumb: if it's hard to typecheck, it's probably hard to understand
   credit on the first 3 slides go to Forbes Lindesay's talk from React Amsterdam => https://youtu.be/lk8o7ym29WM
 
@@ -63,7 +63,7 @@ theme: Next, 3
 
 Types for literal values are lowercase
 
-```javascript, [.highlight: 2-4]
+```javascript, [.highlight: 2-4, 8]
 function method(
   x: number,
   y: string,
@@ -71,7 +71,7 @@ function method(
 ) {
   // ...
 }
-method(3.14, "hello", true);
+method(3.14, "hello", true)
 ```
 
 ---
@@ -81,7 +81,7 @@ method(3.14, "hello", true);
 
 Types for wrapper objects are capitalized, the same as their constructor
 
-```javascript, [.highlight: 2-4]
+```javascript, [.highlight: 2-4, 8]
 function method(
   x: Number,
   y: String,
@@ -89,7 +89,7 @@ function method(
 ) {
   // ...
 }
-method(new Number(42), new String("world"), new Boolean(false));
+method(new Number(42), new String("world"), new Boolean(false))
 ```
 
 ^ Try to avoid using the constructor objects, whenever possible
@@ -111,13 +111,103 @@ const MyButton = (onClick: ClickHandler) => /*...*/
 
 # Maybe types
 
+```javascript, [.highlight: 3]
+// @flow
+function acceptsMaybeNumber(
+  value: ?number,
+) {
+  // ...
+}
+```
+
+
+^ It’s common for JavaScript code to introduce “optional” values so that you have the option of leaving out the value or passing null instead.
+ Flow allows you to add `?` to help denote these "Maybe" types
+
 ---
 
-## Liberal use of type aliases
+# Maybe types
+
+```javascript, [.highlight: 5]
+// @flow
+function acceptsMaybeNumber(
+  value: ?number,
+) {
+  if (value != null) {
+    return value * 2
+  }
+}
+```
+
+^ However when you add the `maybe` type you'll need to add a refinement, or a validation check to let flow know that you're handling the `maybe` properly
 
 ---
 
-## Nominal vs. structural
+## Variable types
+
+---
+
+## Function types
+---
+
+## Object types
+
+---
+
+## Array types
+---
+
+## Tuple types
+
+---
+
+## Class types
+
+```javascript
+class MyClass {
+  // ...
+}
+
+let myInstance: MyClass = new MyClass()
+```
+
+^ JavaScript classes in Flow operate both as a value and a type.
+
+---
+
+## Type aliases
+
+```javascript, [.highlight: 2-4]
+// @flow
+type MyObject = {
+  bar: string,
+  baz: number,
+}
+
+var val: MyObject = { /* ... */ }
+function method(val: MyObject) { /* ... */ }
+class Foo { constructor(val: MyObject) { /* ... */ } }
+```
+
+^ Type aliases allow you to give meaningful names to shapes of data which can be reused.
+
+---
+
+## [Nominal vs. Structural](https://flow.org/en/docs/lang/nominal-structural/)
+
+^ A static type checker uses either the names or the structure of the types in order to compare them against other types.
+
+^ Languages with a more OO bent have primarily nominal type systems, while other languages with a more functional swing have primarily structural type systems.
+
+^  B/c JS combines ideas from both paradigms, Flow uses structural typing for objects and functions, and nominal typing for classes.
+
+
+---
+
+## Opaque Type Aliases
+
+^ Opaque type aliases are type aliases that do not allow access to their underlying type outside of the file in which they are defined. Opaque type aliases may be used anywhere a type can be used.
+  The main difference is that within the file they are defined they act like normal type aliases using structural typing, but when imported into another file they use nominal typing
 
 ---
 
@@ -157,7 +247,13 @@ logNullable()
 
 ---
 
-## Avoid `any`/`Object`/`Function` as much as possible
+## Credits
+
+- [Flow Typing a React Codebase](https://youtu.be/lk8o7ym29WM) - Forbes Lindesay
+- [Flow type annotations docs](https://flow.org/en/docs/types/)
+- [Flow type system docs](https://flow.org/en/docs/lang/)
+- [Type Systems Will Make You a Better JavaScript Developer](https://youtu.be/V1po0BT7kac) - Jared Forsyth
+
 
 ---
 
