@@ -5,9 +5,11 @@ theme: Next, 3
 
 ---
 
-## :point_right: Why flow?
 ## :point_right: Where does flow fit?
+## :point_right: Why flow?
 ## :point_right: How to best leverage it
+
+^ Briefly want to talk about where flow fits in our world, and why we want it all before diving into ways to leverage it's capabilities
 
 ---
 
@@ -15,20 +17,20 @@ theme: Next, 3
 
 ![inline](./testing-pyramid.jpg)
 
-^ Re: tests,  All that matters is (how much value, how long does it take to write, & how long does it take to run?) Categories not helpful
+^ This is a re-imagined testing pyramid that's been floating around the internet recently.
+^ With regards to tests it does not make a distinction b/t unit/integration/functional.  All that matters is (how much value you get from the tests, how long does it take to write, and how long does it take to run?). In general categories are not helpful
 
 ---
 [.build-lists: true]
 
 ## Why flow?
-- True 100% coverage
-- Built in (and validated) docs
-- Catches incorrect assumptions
-- Refactor with confidence
+- True :100:% coverage
+- Built in (and validated :white_check_mark:) docs
+- Catches incorrect assumptions :rotating_light:
+- Refactor with confidence :raised_hands:
 
-^ I want to start w/ some short reasons why flow is important
-
-^ really hard to get get a runtime exception w/ a properly flow-typed code base.
+^ Flow is useful b/c we can get full coverage, inline documentation is constantly validated which helps us catch incorrect assumptions allowing us to refactor with confidence
+^ with a properly flow-typed code base, it is really hard to get get a runtime exception
   Also a good rule of thumb: if it's hard to typecheck, it's probably hard to understand
   credit on the first 3 slides go to Forbes Lindesay's talk from React Amsterdam => https://youtu.be/lk8o7ym29WM
 
@@ -37,7 +39,7 @@ theme: Next, 3
 
 ## `// @flow`
 
-^ Flow can be enabled in any file by simply adding `// @flow` to the top of the file
+^ if you didn't already know, Flow can be enabled in any file by simply adding `// @flow` to the top of the file
 
 ---
 
